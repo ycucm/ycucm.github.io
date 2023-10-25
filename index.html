@@ -153,7 +153,7 @@ Analytics"></a></div></noscript> -->
                     <button type="button" class="btn btn-info btn-xs collapse-button" data-target="" data-toggle="collapse">Bib</button>
                     <button type="button" class="btn btn-primary btn-xs paper-button" data-target="_blank"><a target="_blank" class="conf paper-link" href="#">Paper</a></button>
                     <button type="button" class="btn btn-warning btn-xs code-button" data-target="_blank"><a target="_blank" class="conf code-link" href="#">Code</a></button>
-                    <button type="button" class="btn btn-danger btn-xs slides-button" data-target="_blank"><a target="_blank" class="conf slides-link" href="#">Code</a></button>
+                    <button type="button" class="btn btn-danger btn-xs slides-button" data-target="_blank"><a target="_blank" class="conf slides-link" href="#">Slides</a></button>
                     <p></p>
                     <div class="abs collapse">
                         <info>
@@ -251,7 +251,7 @@ $(document).ready(function() {
             }
 
             if (pub.linkToSlides) {
-                $entry.find(".sldies-link").attr('href', pub.linkToSlides);
+                $entry.find(".slides-link").attr('href', pub.linkToSlides);
             } else {
                 $entry.find(".slides-button").remove();
             }
