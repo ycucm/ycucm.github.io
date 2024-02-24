@@ -1,9 +1,27 @@
 [
     {
+        "title": "CloudEval-YAML: A Practical Benchmark for Cloud Configuration Generation.",
+        "authors": ["Yifei Xu*", "<strong>Yuning Chen</strong>*", "Xumiao Zhang*", "Xianshang Lin", "Pan Hu", "Yunfei Ma", "Songwu Lu", "Wan Du", "Z. Morley Mao", "Ennan Zhai", "Dennis Cai"],
+        "conference": {
+            "name": "The 7th Conference on Neural Information Processing Systems (NeurIPS 2023) Workshop on ML for Systems",
+            "short": "MLSys'24"
+        },
+        "abstract": "We present CloudEval-YAML, a practical benchmark for cloud configuration generation. CloudEval-YAML tackles the diversity challenge by focusing on YAML, the de facto standard of numerous cloud-native tools. We develop the CloudEval-YAML benchmark with practicality in mind: the dataset consists of hand-written problems with unit tests targeting practical scenarios. We further enhanced the dataset to meet practical needs by rephrasing questions in a concise, abbreviated, and bilingual manner. The dataset consists of 1011 problems that take more than 1200 human hours to complete. To improve practicality during evaluation, we build a scalable evaluation platform for CloudEval-YAML that achieves a 20 times speedup over a single machine. To the best of our knowledge, the CloudEval-YAML dataset is the first hand-written dataset targeting cloud-native applications. We present an in-depth evaluation of 13 LLMs, leading to a deeper understanding of the problems and LLMs, as well as effective methods to improve task performance and reduce cost.",
+        "citation": "@article{xu2023cloudeval,
+  title={CloudEval-YAML: A Practical Benchmark for Cloud Configuration Generation},
+  author={Xu, Yifei and Chen, Yuning and Zhang, Xumiao and Lin, Xianshang and Hu, Pan and Ma, Yunfei and Lu, Songwu and Du, Wan and Mao, Zhuoqing and Zhai, Ennan and others},
+  journal={arXiv preprint arXiv:2401.06786},
+  year={2023}
+}",
+        "linkToPaper": "https://arxiv.org/pdf/2401.06786",
+        "linkToCode": "https://github.com/alibaba/cloudeval-yaml"
+    },
+    
+    {
         "title": "Link Quality Modeling for LoRa Networks in Orchards.",
         "authors": ["Kang Yang*", "<strong>Yuning Chen</strong>*", "Xuanren Chen", "Wan Du"],
         "conference": {
-            "name": "Proceedings of the 22nd International Conference on Information Processing in Sensor Networks (ACM/IEEE IPSN 2023)",
+            "name": "The 22nd International Conference on Information Processing in Sensor Networks (ACM/IEEE IPSN 2023)",
             "short": "IPSN'23"
         },
         "abstract": "LoRa networks have been deployed in many orchards for environmental monitoring and crop management. An accurate propagation model is essential for efficiently deploying a LoRa network in orchards, e.g., determining gateway coverage and sensor placement. Although some propagation models have been studied for LoRa networks, they are not suitable for orchard environments, because they do not consider the shadowing effect on wireless propagation caused by the ground and tree canopies. This paper presents FLog, a propagation model for LoRa signals in orchard environments. FLog leverages a unique feature of orchards, i.e., all trees have similar shapes and are planted regularly in space. We develop a 3D model of the orchards. Once we have the location of a sensor and a gateway, we know the mediums that the wireless signal traverse. Based on this knowledge, we generate the First Fresnel Zone (FFZ) between the sender and the receiver. The intrinsic path loss exponents (PLE) of all mediums can be combined into a classic Log-Normal Shadowing model in the FFZ. Extensive experiments in almond orchards show that FLog reduces the link quality estimation error by 42.7% and improves gateway coverage estimation accuracy by 70.3%, compared with a widely-used propagation model.",
@@ -21,7 +39,10 @@
             "short": "ML4Sys @ NeurIPS'23"
         },
         "abstract": "We present CloudEval-YAML, a practical benchmark for cloud configuration generation. CloudEval-YAML tackles the diversity challenge by focusing on YAML, the de facto standard of numerous cloud-native tools. We develop the CloudEval-YAML benchmark with practicality in mind: the dataset consists of hand-written problems with unit tests targeting practical scenarios. We further enhanced the dataset to meet practical needs by rephrasing questions in a concise, abbreviated, and bilingual manner. The dataset consists of 1011 problems that take more than 1200 human hours to complete. To improve practicality during evaluation, we build a scalable evaluation platform for CloudEval-YAML that achieves a 20 times speedup over a single machine. To the best of our knowledge, the CloudEval-YAML dataset is the first hand-written dataset targeting cloud-native applications. We present an in-depth evaluation of 13 LLMs, leading to a deeper understanding of the problems and LLMs, as well as effective methods to improve task performance and reduce cost.",
-        "citation": "@article{xu2023practical, title={A Practical Benchmark for Cloud Native YAML Configuration Generation}, author={Yifei Xu, Yuning Chen, Xumiao Zhang, Xianshang Lin, Pan Hu, Yunfei Ma, Songwu Lu, Wan Du, Z. Morley Mao, Ennan Zhai, Dennis Cai}, year={2023}}",
+        "citation": "@article{xucloudeval,
+  title={CloudEval-YAML: A Realistic and Scalable Benchmark for Cloud Configuration Generation},
+  author={Xu, Yifei and Chen, Yuning and Zhang, Xumiao and Lin, Xianshang and Hu, Pan and Ma, Yunfei and Lu, Songwu and Du, Wan and Mao, Z Morley and Zhai, Ennan and others}
+}",        
         "linkToPaper": "https://mlforsystems.org/assets/papers/neurips2023/paper33.pdf",
         "linkToCode": "https://github.com/alibaba/cloudeval-yaml",
         "linkToSlides": "https://ycucm.github.io/files/nips-poster.pdf"
