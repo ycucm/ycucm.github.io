@@ -197,6 +197,42 @@ Analytics"></a></div></noscript> -->
             </tr>
         </template>
 
+        <hr size="1" color="#800000">
+        
+        <h2><b><a id="other_publications">Other Publications</a></b> <small>(*: co-primary authors)</small></h2>
+
+        <template id="publication-template">
+            <tr>
+                <td>
+                    <span class="label label-primary">INDEX</span>
+                </td>
+                <td>
+                    <h4 class="list-group-item-heading title">
+                        TITLE
+                        <span class="badge conf-tag" target="_blank">CONFERENCE</span>
+                    </h4>
+                    <p class="author">
+                        AUTHORS<br>
+                        CONFERENCE<br>
+                    </p>
+                    <button type="button" class="btn btn-success btn-xs collapse-button" data-target="" data-toggle="collapse">Abstract</button>
+                    <button type="button" class="btn btn-info btn-xs collapse-button" data-target="" data-toggle="collapse">Bib</button>
+                    <button type="button" class="btn btn-primary btn-xs paper-button" data-target="_blank"><a target="_blank" class="conf paper-link" href="#">Paper</a></button>
+                    <button type="button" class="btn btn-warning btn-xs code-button" data-target="_blank"><a target="_blank" class="conf code-link" href="#">Code</a></button>
+                    <button type="button" class="btn btn-danger btn-xs slides-button" data-target="_blank"><a target="_blank" class="conf slides-link" href="#">Slides</a></button>
+                    <p></p>
+                    <div class="abs collapse">
+                        <info>
+                            ABSTRACT
+                        </info>
+                    </div>
+                    <div class="bib collapse">
+                        BIB
+                    </div>
+                </td>
+            </tr>
+        </template>
+
         <div class="panel panel-default">
             <!--<div class="panel-body">-->
             <table class="table table-hover">
