@@ -207,7 +207,7 @@ Analytics"></a></div></noscript> -->
 
         <hr size="1" color="#800000">
         
-        <h2><b><a id="publications">Other Publications</a></b> <small>(*: co-primary authors)</small></h2>
+        <h2><b><a id="other_publications">Other Publications</a></b> <small>(*: co-primary authors)</small></h2>
 
         <template id="publication-template">
             <tr>
@@ -340,8 +340,8 @@ $(document).ready(function() {
 $(document).ready(function() {
     fetch('./forms/other_publications.json')
     .then(response => response.json())
-    .then(publications => {
-        publications.forEach((pub, index) => {
+    .then(other_publications => {
+        other_publications.forEach((pub, index) => {
             // Clone the template
             const $entry = $($("#publication-template").html());
 
