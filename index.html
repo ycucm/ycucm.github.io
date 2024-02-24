@@ -197,9 +197,17 @@ Analytics"></a></div></noscript> -->
             </tr>
         </template>
 
+        <div class="panel panel-default">
+            <!--<div class="panel-body">-->
+            <table class="table table-hover">
+                <tbody id="publication-list">
+                </tbody>
+            </table>
+        </div>
+
         <hr size="1" color="#800000">
         
-        <h2><b><a id="other_publications">Other Publications</a></b> <small>(*: co-primary authors)</small></h2>
+        <h2><b><a id="publications">Other Publications</a></b> <small>(*: co-primary authors)</small></h2>
 
         <template id="publication-template">
             <tr>
@@ -236,7 +244,7 @@ Analytics"></a></div></noscript> -->
         <div class="panel panel-default">
             <!--<div class="panel-body">-->
             <table class="table table-hover">
-                <tbody id="publication-list">
+                <tbody id="other-publication-list">
                 </tbody>
             </table>
         </div>
@@ -324,6 +332,56 @@ $(document).ready(function() {
 
             // Append the filled entry to the publication list
             $("#publication-list").append($entry);
+        });
+    });
+});
+</script>
+<script>
+$(document).ready(function() {
+    fetch('./forms/other_publications.json')
+    .then(response => response.json())
+    .then(publications => {
+        publications.forEach((pub, index) => {
+            // Clone the template
+            const $entry = $($("#publication-template").html());
+
+            // Fill in the data
+            $entry.find(".label-primary").text(index + 1);
+            $entry.find(".title").contents().filter(function() {
+                // Check if it's a text node
+                return this.nodeType === 3; // Node.TEXT_NODE
+            }).first().replaceWith(" " + pub.title + " ");
+            
+            $entry.find(".conf-tag").text(pub.conference.short);
+            
+            $entry.find(".author").html(pub.authors.join(', ') + '<br>' + pub.conference.name);
+            
+            $entry.find(".abs").attr('id', 'abs-' + index).find('info').text(pub.abstract);
+            $entry.find(".bib").attr('id', 'bib-' + index).text(pub.citation);
+            
+            $entry.find(".btn-success").attr('data-target', '#abs-' + index);
+            $entry.find(".btn-info").attr('data-target', '#bib-' + index);
+            
+            if (pub.linkToPaper) {
+                $entry.find(".paper-link").attr('href', pub.linkToPaper);
+            } else {
+                $entry.find(".paper-button").remove();
+            }
+
+            if (pub.linkToCode) {
+                $entry.find(".code-link").attr('href', pub.linkToCode);
+            } else {
+                $entry.find(".code-button").remove();
+            }
+
+            if (pub.linkToSlides) {
+                $entry.find(".slides-link").attr('href', pub.linkToSlides);
+            } else {
+                $entry.find(".slides-button").remove();
+            }
+
+            // Append the filled entry to the publication list
+            $("#other-publication-list").append($entry);
         });
     });
 });
