@@ -209,7 +209,7 @@ Analytics"></a></div></noscript> -->
         
         <h2><b><a id="other_publications">Other Publications</a></b> <small>(*: co-primary authors)</small></h2>
 
-        <template id="publication-template">
+        <template id="other-publication-template">
             <tr>
                 <td>
                     <span class="label label-primary">INDEX</span>
@@ -343,7 +343,7 @@ $(document).ready(function() {
     .then(other_publications => {
         other_publications.forEach((pub, index) => {
             // Clone the template
-            const $entry = $($("#publication-template").html());
+            const $entry = $($("#other-publication-template").html());
 
             // Fill in the data
             $entry.find(".label-primary").text(index + 1);
