@@ -342,12 +342,12 @@ $(document).ready(function() {
     .then(response => response.json())
     .then(other_publications => {
         other_publications.forEach((pub, index) => {
-            // Clone the template
-            index = index + 100
+            // 1000 makes sure other_pubs doesn't duplicate pubs
+            index = index + 1000
             const $entry = $($("#other-publication-template").html());
 
             // Fill in the data
-            $entry.find(".label-primary").text(index + 1);
+            $entry.find(".label-primary").text(index - 1000 + 1); //minus 1000
             $entry.find(".title").contents().filter(function() {
                 // Check if it's a text node
                 return this.nodeType === 3; // Node.TEXT_NODE
