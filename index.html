@@ -343,6 +343,7 @@ $(document).ready(function() {
     .then(other_publications => {
         other_publications.forEach((pub, index) => {
             // Clone the template
+            index = index + 100
             const $entry = $($("#other-publication-template").html());
 
             // Fill in the data
