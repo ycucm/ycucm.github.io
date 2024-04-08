@@ -11,6 +11,22 @@
         "linkToPaper": "https://arxiv.org/pdf/2401.06786",
         "linkToCode": "https://github.com/alibaba/cloudeval-yaml"
     },
+
+    {
+        "title": "OrchLoc: In-Orchard Localization via a Single LoRa Gateway and Generative Diffusion Model-based Fingerprinting.",
+        "authors": ["Kang Yang", "<strong>Yuning Chen</strong>", "Wan Du"],
+        "conference": {
+            "name": "The 22nd ACM International Conference on Mobile Systems, Applications, and Services (ACM MobiSys 2024)",
+            "short": "MobiSys'24"
+        },
+        "abstract": "In orchards, tree-level localization of robots is critical for smart agriculture applications like precision disease management and targeted nutrient dispensing. However, prior solutions can not provide adequate accuracy. We develop LoRaLoc, a fingerprinting-based localization system that can provide tree-level accuracy with only one LoRa gateway. We extract channel state information (CSI) measured over eight channels as the fingerprint. To avoid labor-intensive site surveys for building and updating the fingerprint database, we design a CSI generative model (CGM) that learns the relationship between CSI vectors and their corresponding locations. The CGM is fine-tuned using CSI measurements from static LoRa sensor nodes to build and update the fingerprint database. Extensive experiments in two orchards validate LoRaLoc's effectiveness in achieving tree-level localization with minimal overhead and enhancing robot navigation accuracy.",
+        "citation": "@inproceedings{yang2024orchloc,
+  title={{OrchLoc: In-Orchard Localization via a Single LoRa Gateway and Generative Diffusion Model-based Fingerprinting}},
+  author={Yang, Kang and Chen, Yuning and Du, Wan},
+  booktitle={ACM MobiSys},
+  year={2024}
+}"
+    },
     
     {
         "title": "Link Quality Modeling for LoRa Networks in Orchards.",
