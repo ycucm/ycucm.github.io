@@ -23,6 +23,6 @@
         "abstract": "This paper examines fault resilience among citizen-science air quality monitoring networks in California's economically challenged San Joaquin Valley (SJV). We examine disparities in monitoring capabilities and data equity between the SJV and the San Francisco Bay Area. We found significant inequities through experimental analysis simulating sensor failures. Our results emphasize the need for reliable monitoring systems and advanced modeling algorithms in resource-limited areas.",
         "citation": "@inproceedings{10.1145/3625687.3628384, author = {Hu, Zhizhang and Du, Shangjie and Chen, Yuning and Zhang, Xuan and Du, Wan and Bradman, Asa and Pan, Shijia}, title = {Poster Abstract: Enhancing Fault Resilience of Air Quality Monitoring in San Joaquin Valley: A Data Equity Analysis}, booktitle = {ACM SenSys}, year = {2023}}",        
         "linkToPaper": "https://dl.acm.org/doi/pdf/10.1145/3625687.3628384",
-        "linkToSlides": "https://ycucm.github.io/files/nips-poster.pdf"
+        "linkToSlides": "https://ycucm.github.io/files/sensys23_air_poster.pdf"
     }
 ]
