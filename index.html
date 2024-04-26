@@ -229,6 +229,7 @@ Analytics"></a></div></noscript> -->
                     <button type="button" class="btn btn-primary btn-xs paper-button" data-target="_blank"><a target="_blank" class="conf paper-link" href="#">Paper</a></button>
                     <button type="button" class="btn btn-warning btn-xs code-button" data-target="_blank"><a target="_blank" class="conf code-link" href="#">Code</a></button>
                     <button type="button" class="btn btn-danger btn-xs slides-button" data-target="_blank"><a target="_blank" class="conf slides-link" href="#">Slides</a></button>
+                    <button type="button" class="btn btn-danger btn-xs poster-button" data-target="_blank"><a target="_blank" class="conf poster-link" href="#">Poster</a></button>
                     <p></p>
                     <div class="abs collapse">
                         <info>
@@ -334,6 +335,12 @@ $(document).ready(function() {
                 $entry.find(".slides-button").remove();
             }
 
+            if (pub.linkToPoster) {
+                $entry.find(".poster-link").attr('href', pub.linkToPoster);
+            } else {
+                $entry.find(".poster-button").remove();
+            }
+
             // Append the filled entry to the publication list
             $("#publication-list").append($entry);
         });
@@ -383,6 +390,12 @@ $(document).ready(function() {
                 $entry.find(".slides-link").attr('href', pub.linkToSlides);
             } else {
                 $entry.find(".slides-button").remove();
+            }
+
+            if (pub.linkToPoster) {
+                $entry.find(".poster-link").attr('href', pub.linkToPoster);
+            } else {
+                $entry.find(".poster-button").remove();
             }
 
             // Append the filled entry to the publication list
