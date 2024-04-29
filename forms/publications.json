@@ -1,7 +1,7 @@
 [
     {
         "title": "CloudEval-YAML: A Practical Benchmark for Cloud Configuration Generation.",
-        "authors": ["Yifei Xu*", "<strong>Yuning Chen</strong>*", "Xumiao Zhang*", "Xianshang Lin", "Pan Hu", "Yunfei Ma", "Songwu Lu", "Wan Du", "Z. Morley Mao", "Ennan Zhai", "Dennis Cai"],
+        "authors": ["Yifei Xu*", "<strong>Yuning Chen</strong>*", "Xumiao Zhang*", "Xianshang Lin", "Pan Hu", "Yunfei Ma", "Songwu Lu", "Wan Du", "Z. Morley Mao", "Dennis Cai", "Ennan Zhai"],
         "conference": {
             "name": "The 7th Annual Conference on Machine Learning and Systems (MLSys 2024)",
             "short": "MLSys'24"
