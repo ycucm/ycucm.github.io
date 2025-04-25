@@ -1,5 +1,4 @@
 [
-        
     {
         "title": "Demo Abstract: Comprehensive Wireless Soil Component Sensing via VNIR and LoRa.",
         "authors": ["Yuanlin Yang*", "<strong>Yuning Chen</strong>", "Kang Yang*", "Sikai Yang", "Wan Du"],
@@ -8,7 +7,7 @@
             "short": "SenSys'25"
         },
         "abstract": "Soil composition sensing is essential for precision agriculture, sustainable land management, and optimizing crop yields. However, existing sensing systems face major limitations, including extensive calibration needs to account for soil variability, a narrow focus on measurements for specific properties, and sensitivity to the placement of the device. These challenges hinder practical deployment. This demo shows SoilX, a comprehensive wireless soil sensing system that quantifies all major soil components, including aluminosilicates, water, organic carbon, and micronutrients, using RF and VNIR sensing technologies. To enable the generalizability, SoilX employs contrastive pretraining to mitigate cross-component interference. Additionally, a tetrahedron-based antenna geometry ensures robustness to device placements. Extensive evaluations in both lab and field settings demonstrate that SoilX achieves state-of-the-art accuracy in soil composition analysis with low costs.",
-        "linkToPaper": "https://dl.acm.org/doi/pdf/10.1145/3715014.3724377",
+        "linkToPaper": "https://dl.acm.org/doi/pdf/10.1145/3715014.3724377"
     },
     
     {
