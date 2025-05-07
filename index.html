@@ -427,7 +427,7 @@ from tkinter import ttk, messagebox
 from PIL import Image, ImageTk, ImageDraw
 
 """
-Soil‑Sensing Dashboard (v6 – bug‑fix)
+Soil‑Sensing Dashboard (v7 – bug‑fix)
 ====================================
 Observed issue: voltage & inference labels not visually updating on some
 Tkinter builds. Root cause: `.config(text=…)` timing quirks on certain
@@ -435,146 +435,14 @@ platforms. **Fix**: switch to `tk.StringVar` for every dynamic field so the
 UI refreshes reliably.
 
 Features retained:
-  • Chirps cycling every 7 s with ε random 13–19 (unless banner click).
-  • Voltage round‑robin replacement (1.865–2.239 V).
-  • Inference jitters; Moisture/ε spike when banner clicked.
-  • Banner image clickable, graceful fallbacks.
-"""
-
-# ───────────────────────── Config ─────────────────────────
-DATA_DIR      = Path(__file__).resolve().parent / "data"
-VOL_FILE      = DATA_DIR / "voltages.csv"
-INF_FILE      = DATA_DIR / "inference.json"
-CH_PREFIX     = "chirps"
-CH_COUNT      = 5
-BANNER_FILE   = DATA_DIR / "model_inference.png"
-TICK_MS       = 7000  # 7 s
-
-IMG_W, IMG_H  = 250, 150
-BAN_W, BAN_H  = 400, 140
-
-BG_SLAB  = "#d5a089"
-FONT_REG = ("Helvetica", 12)
-PAD      = 10
-
-JITTER = {
-    "Moisture":        2.50,
-    "Organic Carbon":  0.20,
-    "N":               0.04,
-    "P":               0.04,
-    "K":               0.04,
-}
-
-# ──────────────────────── Data helpers ─────────────────────
-
-def load_voltage_rows():
-    rows = []
-    try:
-        with open(VOL_FILE, newline="") as f:
-            rdr = csv.reader(f)
-            for depth, volt in rdr:
-                # skip header row
-                if depth.lower().startswith("depth"):
-                    continue
-                rows.append((int(depth), float(volt)))
-    except FileNotFoundError:
-        messagebox.showwarning("Missing file", f"{VOL_FILE} not found – dummy values")
-    if not rows:
-        rows = [(460 + i*160, round(random.uniform(1.8, 2.2), 3)) for i in range(7)]
-    return rows
-
-
-def load_inference_dict():
-    try:
-        with open(INF_FILE) as f:
-            raw = json.load(f)
-    except FileNotFoundError:
-        messagebox.showwarning("Missing file", f"{INF_FILE} not found – dummy inference")
-        raw = {
-            "Al": 12, "Si": 40, "Soil texture": 35, "Moisture": 22,
-            "Organic Carbon": 1.8, "N": 0.12, "P": 0.05, "K": 0.18,
-        }
-    return {k: float(v) for k, v in raw.items()}
-
-
-def load_chirp_images():
-    imgs = []
-    for i in range(1, CH_COUNT + 1):
-        p = DATA_DIR / f"{CH_PREFIX}{i}.png"
-        try:
-            im = Image.open(p)
-            im.thumbnail((IMG_W, IMG_H))
-            imgs.append(ImageTk.PhotoImage(im))
-        except FileNotFoundError:
-            continue
-    if not imgs:
-        ph = Image.new("RGB", (IMG_W, IMG_H), "white")
-        ImageDraw.Draw(ph).text((10, IMG_H//2-6), "<missing chirps>")
-        imgs.append(ImageTk.PhotoImage(ph))
-    return imgs
-
-
-def load_banner_photo():
-    try:
-        img = Image.open(BANNER_FILE)
-        img.thumbnail((BAN_W, BAN_H))
-        return ImageTk.PhotoImage(img)
-    except FileNotFoundError:
-        ph = Image.new("RGB", (BAN_W, BAN_H), "white")
-        ImageDraw.Draw(ph).text((10, BAN_H//2-6), "<missing model>")
-        return ImageTk.PhotoImage(ph)
-
-# ──────────────────────── Dashboard ───────────────────────
-class Dashboard:
-    def __init__(self, root: tk.Tk):
-        self.root = root
-        self.root.title("Soil Sensing Dashboard")
-        self.root.geometry("830x760")
-
-        # data containers
-        self.volt_rows  = load_voltage_rows()
-        self.infer_vals = load_inference_dict()
-        self.chirps     = load_chirp_images()
-        self.banner_ph  = load_banner_photo()
-
-        self.ch_idx  = 0
-        self.v_idx   = 0
-        self.special = False  # banner‑click flag
-
-        self.build_ui()
-        self.schedule()
-
-    # ------------------ UI builder ------------------
-    def build_ui(self):
-        # Sensing frame
-        sfrm = ttk.LabelFrame(self.root, text="Sensing Data", padding=PAD)
-        sfrm.pack(fill="both", expand=True, padx=PAD, pady=PAD)
-
-        # Voltage slab
-        vslab = tk.Frame(sfrm, bg=BG_SLAB, bd=1, relief="solid")
-        vslab.pack(side="left", fill="both", expand=True, padx=PAD, pady=PAD)
-
-        self.vol_vars = []  # list[StringVar]
-        for depth, volt in self.volt_rows:
-            sv = tk.StringVar()
-            sv.set(f"{depth}mm voltage: {volt:.3f}V")
-            tk.Label(vslab, textvariable=sv, bg=BG_SLAB, font=FONT_REG).pack(anchor="w", padx=PAD//2, pady=2)
-            self.vol_vars.append(sv)
-
-        # Chirp slab
-        cslab = tk.Frame(sfrm, bg=BG_SLAB, bd=1, relief="solid")
-        cslab.pack(side="right", fill="both", expand=True, padx=PAD, pady=PAD)
-        tk.Label(cslab, text="Received Chirps", bg=BG_SLAB, font=FONT_REG + ("underline",)).pack(pady=(PAD//2,0))
-        self.chirp_lbl = tk.Label(cslab, image=self.chirps[0], bg=BG_SLAB)
-        self.chirp_lbl.pack(pady=PAD//2)
-        self.eps_var = tk.StringVar()
-        tk.Label(cslab, textvariable=self.eps_var, bg=BG_SLAB, font=FONT_REG).pack(pady=(0,PAD//2))
-        self.update_eps(first=True)
-
-        # Banner (clickable)
-        ban = tk.Label(self.root, image=self.banner_ph, cursor="hand2")
-        ban.pack(pady=(0,PAD))
-        ban.bind("<Button-1>", self.on_banner_click)
+  • Chirps cycling every 7 s with ε random 13–19 (unless         # Banner (clickable)
+        self.        # Banner (clickable)
+        self.banner_lbl = tk.Label(self.root, image=self.banner_ph, cursor="hand2")
+        self.banner_lbl.pack(pady=(0, PAD))
+        # Correct event binding (left mouse button)
+        self.banner_lbl.bind("<Button-1>", self.on_banner_click)
+"<Button-1>", self.on_banner_click)
+"<Button-1>", self.on_banner_click)
 
         # Inference frame
         ifrm = ttk.LabelFrame(self.root, text="Contrastive Cross-component Learning Inference", padding=PAD)
@@ -640,6 +508,7 @@ if __name__ == "__main__":
     root = tk.Tk()
     Dashboard(root)
     root.mainloop()
+
 
 </code></pre>
 </body>
