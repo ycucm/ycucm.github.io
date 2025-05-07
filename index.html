@@ -417,5 +417,240 @@ $(document).ready(function() {
     });
 });
 </script>
+<pre><code>
+import csv
+import json
+import random
+from pathlib import Path
+import tkinter as tk
+from tkinter import ttk, messagebox
+from PIL import Image, ImageTk, ImageDraw
+
+"""
+Soil‑Sensing Dashboard (v5)
+===========================
+New feature:
+  • Clicking the **model_inference.png** banner queues a special update on the
+    *next* 7‑second tick: ε jumps to a random **27–32**, and Moisture is set
+    to **28.6–29.2** (exact once‑off; subsequent ticks return to normal).
+
+All earlier dynamics preserved: chirp cycling, voltages round‑robin jitter,
+regular ε 13–19, inference jitters, graceful fallbacks.
+"""
+
+# ───────────────────────────── Config ─────────────────────────────
+DATA_DIR       = Path(__file__).resolve().parent / "data"
+VOLTAGE_FILE   = DATA_DIR / "voltages.csv"
+INFERENCE_FILE = DATA_DIR / "inference.json"
+CHIRP_PREFIX   = "chirps"            # chirps1.png … chirps5.png
+CHIRP_COUNT    = 5
+BANNER_FILE    = DATA_DIR / "model_inference.png"
+ROTATE_MS      = 7000                # 7 seconds
+
+# Figure sizes
+IMG_W, IMG_H   = 250, 150            # chirp figure dimensions
+BAN_W, BAN_H   = 400, 140            # banner dimensions
+
+# Appearance
+BG_SLAB  = "#d5a089"
+FONT_REG = ("Helvetica", 12)
+PAD      = 10
+
+JITTER = {          # ± ranges for inference jitter
+    "Moisture":        2.50,
+    "Organic Carbon":  0.20,
+    "N":               0.04,
+    "P":               0.04,
+    "K":               0.04,
+}
+
+# ───────────────────────────── Data Loaders ──────────────────────
+
+def load_voltage_data():
+    rows = []
+    try:
+        with open(VOLTAGE_FILE, newline="") as f:
+            rdr = csv.reader(f)
+            first = next(rdr)
+            if first[0].lower().startswith("depth"):
+                pass  # skip header
+            else:
+                rows.append((int(first[0]), float(first[1])))
+            for depth, volt in rdr:
+                rows.append((int(depth), float(volt)))
+    except FileNotFoundError:
+        messagebox.showwarning("Missing file", f"{VOLTAGE_FILE} missing – dummy voltages")
+    if not rows:
+        rows = [(460 + i*160, 0.00) for i in range(7)]
+    return rows
+
+
+def load_inference_data():
+    try:
+        with open(INFERENCE_FILE) as f:
+            raw = json.load(f)
+    except FileNotFoundError:
+        messagebox.showwarning("Missing file", f"{INFERENCE_FILE} missing – dummy inference")
+        raw = {
+            "Al": 12, "Si": 40, "Soil texture": 35, "Moisture": 22,
+            "Organic Carbon": 1.8, "N": 0.12, "P": 0.05, "K": 0.18,
+        }
+    return {k: float(v) for k, v in raw.items()}
+
+
+def load_chirps():
+    imgs = []
+    for i in range(1, CHIRP_COUNT + 1):
+        try:
+            im = Image.open(DATA_DIR / f"{CHIRP_PREFIX}{i}.png")
+            im.thumbnail((IMG_W, IMG_H))
+            imgs.append(ImageTk.PhotoImage(im))
+        except FileNotFoundError:
+            continue
+    if not imgs:
+        ph = Image.new("RGB", (IMG_W, IMG_H), "white")
+        ImageDraw.Draw(ph).text((10, IMG_H//2-6), "<Missing chirps>")
+        imgs.append(ImageTk.PhotoImage(ph))
+    return imgs
+
+
+def load_banner():
+    try:
+        img = Image.open(BANNER_FILE)
+        img.thumbnail((BAN_W, BAN_H))
+        return ImageTk.PhotoImage(img)
+    except FileNotFoundError:
+        ph = Image.new("RGB", (BAN_W, BAN_H), "white")
+        ImageDraw.Draw(ph).text((10, BAN_H//2-6), "<Missing model>")
+        return ImageTk.PhotoImage(ph)
+
+# ───────────────────────────── Dashboard ─────────────────────────
+class Dashboard:
+    def __init__(self, root: tk.Tk):
+        self.root = root
+        self.root.title("Soil Sensing Dashboard")
+        self.root.geometry("800x740")
+
+        # Data
+        self.voltages = load_voltage_data()
+        self.inference = load_inference_data()
+        self.chirps    = load_chirps()
+        self.banner_ph = load_banner()
+
+        self.ch_idx    = 0      # chirp frame index
+        self.v_idx     = 0      # voltage depth round‑robin index
+        self.special   = False  # flag for one‑off banner click event
+
+        # Build UI
+        self.build_ui()
+        self.schedule_tick()
+
+    # --------------------------- UI ---------------------------
+    def build_ui(self):
+        # Sensing Data
+        sfrm = ttk.LabelFrame(self.root, text="Sensing Data", padding=PAD)
+        sfrm.pack(fill="both", expand=True, padx=PAD, pady=PAD)
+
+        # Voltage slab
+        vslab = tk.Frame(sfrm, bg=BG_SLAB, bd=1, relief="solid")
+        vslab.pack(side="left", fill="both", expand=True, padx=PAD, pady=PAD)
+        self.v_labels = []
+        for depth, volt in self.voltages:
+            lbl = tk.Label(vslab, bg=BG_SLAB, font=FONT_REG)
+            lbl.pack(anchor="w", padx=PAD//2, pady=2)
+            self.v_labels.append(lbl)
+        self.refresh_voltage_labels()
+
+        # Chirp slab
+        cslab = tk.Frame(sfrm, bg=BG_SLAB, bd=1, relief="solid")
+        cslab.pack(side="right", fill="both", expand=True, padx=PAD, pady=PAD)
+        tk.Label(cslab, text="Received Chirps", font=FONT_REG + ("underline",), bg=BG_SLAB).pack(pady=(PAD//2, 0))
+        self.chirp_lbl = tk.Label(cslab, image=self.chirps[0], bg=BG_SLAB)
+        self.chirp_lbl.pack(pady=PAD//2)
+        self.eps_lbl = tk.Label(cslab, bg=BG_SLAB, font=FONT_REG)
+        self.eps_lbl.pack(pady=(0, PAD//2))
+        self.update_eps(regular=True)
+
+        # Model banner (clickable)
+        ban_lbl = tk.Label(self.root, image=self.banner_ph, cursor="hand2")
+        ban_lbl.pack(pady=(0, PAD))
+        ban_lbl.bind("<Button-1>", self.on_banner_click)
+
+        # Inference panel
+        ifrm = ttk.LabelFrame(self.root, text="Contrastive Cross-component Learning Inference", padding=PAD)
+        ifrm.pack(fill="both", expand=True, padx=PAD, pady=PAD)
+        self.inf_labels = {}
+        for k in ["Al", "Si", "Soil texture", "Moisture", "Organic Carbon", "N", "P", "K"]:
+            lbl = tk.Label(ifrm, font=FONT_REG, anchor="w")
+            lbl.pack(anchor="w", pady=2)
+            self.inf_labels[k] = lbl
+        self.refresh_inference_labels()
+
+    # ---------------------- Event Handler ----------------------
+    def on_banner_click(self, _event):
+        # Queue special modification for next tick
+        self.special = True
+
+    # ---------------------- Refresh helpers --------------------
+    def refresh_voltage_labels(self):
+        for (depth, volt), lbl in zip(self.voltages, self.v_labels):
+            lbl.config(text=f"{depth}mm voltage: {volt:.3f}V")
+
+    def refresh_inference_labels(self):
+        for k, lbl in self.inf_labels.items():
+            if k in self.inference:
+                lbl.config(text=f"{k}: {self.inference[k]:.2f}%")
+            else:
+                lbl.config(text=f"{k}: ??%")
+
+    # ---------------------- Tick tasks -------------------------
+    def update_eps(self, regular):
+        if self.special and not regular:  # special path executed in tick
+            eps = random.uniform(27, 32)
+            self.special = False  # consume event
+        else:
+            eps = random.uniform(13, 19)
+        self.eps_lbl.config(text=f"Dielectric Permittivity (ε): {eps:.2f}")
+
+    def jitter_inference(self, regular):
+        if self.special and not regular:
+            # Moisture forced 28.6–29.2
+            self.inference["Moisture"] = round(random.uniform(28.6, 29.2), 2)
+            # Organic Carbon & others still jitter normally afterwards
+        else:
+            for k, delta in JITTER.items():
+                base = self.inference.get(k)
+                if base is not None:
+                    self.inference[k] = round(base + random.uniform(-delta, delta), 2)
+        self.refresh_inference_labels()
+
+    def mutate_voltage(self):
+        # replace one reading with 1.865–2.239 random value
+        depth, _ = self.voltages[self.v_idx]
+        self.voltages[self.v_idx] = (depth, round(random.uniform(1.865, 2.239), 3))
+        self.v_idx = (self.v_idx + 1) % len(self.voltages)
+        self.refresh_voltage_labels()
+
+    def rotate_chirp(self):
+        self.ch_idx = (self.ch_idx + 1) % len(self.chirps)
+        self.chirp_lbl.config(image=self.chirps[self.ch_idx])
+
+    def tick(self):
+        # main periodic update
+        self.rotate_chirp()
+        self.update_eps(regular=False)
+        self.mutate_voltage()
+        self.jitter_inference(regular=False)
+
+    def schedule_tick(self):
+        self.tick()
+        self.root.after(ROTATE_MS, self.schedule_tick)
+
+# ───────────────────────────── Main ────────────────────────────
+if __name__ == "__main__":
+    app_root = tk.Tk()
+    Dashboard(app_root)
+    app_root.mainloop()
+</code></pre>
 </body>
 </html>
