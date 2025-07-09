@@ -4,7 +4,7 @@
         "authors": ["Yuanlin Yang*", "<strong>Yuning Chen</strong>*", "Kang Yang*", "Sikai Yang", "Wan Du"],
         "conference": {
             "name": "The 23th ACM Conference on Embedded Networked Sensor Systems (ACM SenSys 2025)",
-            "short": "SenSys'25"
+            "short": "SenSys'25 Demo"
         },
         "abstract": "Soil composition sensing is essential for precision agriculture, sustainable land management, and optimizing crop yields. However, existing sensing systems face major limitations, including extensive calibration needs to account for soil variability, a narrow focus on measurements for specific properties, and sensitivity to the placement of the device. These challenges hinder practical deployment. This demo shows SoilX, a comprehensive wireless soil sensing system that quantifies all major soil components, including aluminosilicates, water, organic carbon, and micronutrients, using RF and VNIR sensing technologies. To enable the generalizability, SoilX employs contrastive pretraining to mitigate cross-component interference. Additionally, a tetrahedron-based antenna geometry ensures robustness to device placements. Extensive evaluations in both lab and field settings demonstrate that SoilX achieves state-of-the-art accuracy in soil composition analysis with low costs.",
         "linkToPaper": "https://dl.acm.org/doi/pdf/10.1145/3715014.3724377"
@@ -29,7 +29,7 @@
         "authors": ["Zhizhang Hu*", "Shangjie Du*", "<strong>Yuning Chen</strong>", "Xuan Zhang", "Wan Du", "Asa Bradman", "Shijia Pan"],
         "conference": {
             "name": "The 21th ACM Conference on Embedded Networked Sensor Systems (ACM SenSys 2023)",
-            "short": "SenSys'23"
+            "short": "SenSys'23 Poster"
         },
         "abstract": "This paper examines fault resilience among citizen-science air quality monitoring networks in California's economically challenged San Joaquin Valley (SJV). We examine disparities in monitoring capabilities and data equity between the SJV and the San Francisco Bay Area. We found significant inequities through experimental analysis simulating sensor failures. Our results emphasize the need for reliable monitoring systems and advanced modeling algorithms in resource-limited areas.",
         "citation": "@inproceedings{10.1145/3625687.3628384, author = {Hu, Zhizhang and Du, Shangjie and Chen, Yuning and Zhang, Xuan and Du, Wan and Bradman, Asa and Pan, Shijia}, title = {Poster Abstract: Enhancing Fault Resilience of Air Quality Monitoring in San Joaquin Valley: A Data Equity Analysis}, booktitle = {ACM SenSys}, year = {2023}}",        
