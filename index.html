@@ -131,7 +131,7 @@ Analytics"></a></div></noscript> -->
 
         <hr size="2" color="#800000">
         <div id="about">
-            <p class="lead">I'm a machine learning research scientist at Meta, working on LLM + recommendation systems for large-scale ads conversion products. My recent works explore improving language embedding's (1) representation capability; (2) alignment with multi-funnel user intents; (3) end-to-end adoption in RecSys; (4) optimal way of reasoning for LLM embedding models; (5) combination with other features (6) generalization in semi- or weakly supervised settings.
+            <p class="lead">I'm a machine learning research scientist at <a target="_blank" href="https://www.meta.com/about/company-info">Meta</a>, working on LLM + recommendation systems for large-scale ads conversion products. My recent works explore improving language embedding's (1) representation capability; (2) alignment with multi-funnel user intents; (3) end-to-end adoption in RecSys; (4) optimal way of reasoning for LLM embedding models; (5) combination with other features (6) generalization in semi- or weakly supervised settings.
             <p class="lead">I obtained my Ph.D. in <a target="_blank" href="https://eecs.ucmerced.edu/"> Electrical Engineering and Computer Science</a>(2025) at the <a target="_blank" href="https://www.ucmerced.edu/">University of California, Merced</a>, advised by <a target="_blank" href="https://sites.ucmerced.edu/wdu">Prof. Wan Du</a>. I received my B.E. in Software Engineering (2021) from <a target="_blank" href="https://www.tsinghua.edu.cn/en/">Tsinghua University</a>, advised by <a target="_blank" href="https://ise.thss.tsinghua.edu.cn/~mlong/">Prof. Mingsheng Long</a>. 
 <!--        I was a research intern at Alibaba Cloud in 2023 summer, working with <a target="_blank" href="https://panhu.me/"> Dr. Pan Hu</a> and <a target="_blank" href="https://yfmascgy.github.io/"> Dr. Yunfei Ma</a>. -->
             <!-- I am broadly interested in computer networks and mobile computing. -->
@@ -142,14 +142,14 @@ Analytics"></a></div></noscript> -->
         <hr size="2" color="#800000">
         <h2><b><a id="news">What's New</a></b></h2>
         <dl class="dl-horizontal">
-            <dt>2025</dt>
+            <dt>Oct 2025</dt>
             <dd>SoilX (sample-efficient contrastive pretraining in wireless sensing) was accepted to <a target="_blank" href="https://sensys.acm.org/2026/">SenSys 2026</a>.</dd>
-            <dt>2025</dt>
+            <dt>Jul 2025</dt>
             <dd>I was invited to serve as an Area Chair in <a target="_blank" href="https://kdd2026.kdd.org/">KDD 2026</a>.</dd>
             <!-- <dt>May 2025</dt>
             <dd>SoilX was awarded the Best Demo Award in <a target="_blank" href="https://sensys.acm.org/2025/awards.html">SenSys 2025</a>.</dd> -->
-            <dt>2025</dt>
-            <dd>I passed my <a target="_blank" href="https://events.ucmerced.edu/event/yuning-chen-electrical-engineering-and-computer-science-dissertation-defense">Ph.D. dissertation defense</a>.</dd>
+            <dt>May 2025</dt>
+            <dd>I passed my <a target="_blank" href="https://events.ucmerced.edu/event/yuning-chen-electrical-engineering-and-computer-science-dissertation-defense">Ph.D. dissertation defense</a> and start full-time working at <a target="_blank" href="https://www.meta.com/about/company-info">Meta</a>.</dd>
             <!-- <dt>April 2025</dt>
             <dd>MP2 was accepted to <a target="_blank" href="https://www.usenix.org/conference/atc25">ATC 2025</a>.</dd> -->
             <!-- <dt>January 2025</dt>
@@ -167,21 +167,21 @@ Analytics"></a></div></noscript> -->
         <h2><b><a id="experiences">Professional Experiences</a></b></h2>
 
         <table class="imgtable"><tbody><tr><td>
-        <img src="./files/meta.png" alt="Meta" width="90px">&nbsp;</td>
+        <img src="./files/meta.png" alt="Meta" width="86px">&nbsp;</td>
         <td align="left"><p>Research Scientist, <b>Meta</b> <br>
 <!--         Supervisor: <a target="_blank" href="https://www.linkedin.com/in/yongping-tang-7339024">Dr. Yongping Tang</a><br> -->
         May. 2025 - Present, Bellevue, WA <br></p>
 <!--         work with <a href="https://panhu.me/" target="“blank”">Pan Hu</a> and <a hrexf="https://yfmascgy.github.io/" target="“blank”">Yunfei Ma</a> <br></p> -->
         </td></tr></tbody></table>
         <table class="imgtable"><tbody><tr><td>
-        <img src="./files/bd.png" alt="ByteDance" width="90px">&nbsp;</td>
+        <img src="./files/bd.png" alt="ByteDance" width="86px">&nbsp;</td>
         <td align="left"><p>Software Engineer Intern, <b>ByteDance</b> <br>
 <!--         Supervisor: <a target="_blank" href="https://www.linkedin.com/in/yongping-tang-7339024">Dr. Yongping Tang</a><br> -->
         May. 2024 - Aug. 2024, San Jose, CA <br></p>
 <!--         work with <a href="https://panhu.me/" target="“blank”">Pan Hu</a> and <a hrexf="https://yfmascgy.github.io/" target="“blank”">Yunfei Ma</a> <br></p> -->
         </td></tr></tbody></table>
         <table class="imgtable"><tbody><tr><td>
-        <img src="./files/ali.png" alt="Alibaba Cloud" width="90px">&nbsp;</td>
+        <img src="./files/ali.png" alt="Alibaba Cloud" width="86px">&nbsp;</td>
         <td align="left"><p>Research Intern, <b>Alibaba Cloud U.S.</b> <br>
 <!--         Supervisor: <a target="_blank" href="https://panhu.me/">Dr. Pan Hu</a> and <a target="_blank" href="https://yfmascgy.github.io/">Dr. Yunfei Ma</a><br> -->
         May. 2023 - Aug. 2023, Sunnyvale, CA <br></p>
@@ -340,7 +340,7 @@ $(document).ready(function() {
             
             $entry.find(".conf-tag").text(pub.conference.short);
             
-            $entry.find(".author").html(pub.authors.join(', ') + '<br>' + pub.conference.name + '<br>' + '<strong><font color="red">' + pub.award + '</font></strong><br>');
+            $entry.find(".author").html(pub.authors.join(', ') + '<br>' + pub.conference.name + pub.award);
             
             $entry.find(".abs").attr('id', 'abs-' + index).find('info').text(pub.abstract);
             $entry.find(".bib").attr('id', 'bib-' + index).text(pub.citation);
@@ -397,7 +397,7 @@ $(document).ready(function() {
             
             $entry.find(".conf-tag").text(pub.conference.short);
             
-            $entry.find(".author").html(pub.authors.join(', ') + '<br>' + pub.conference.name + '<br>' + '<strong><font color="red">' + pub.award + '</font></strong><br>');
+            $entry.find(".author").html(pub.authors.join(', ') + '<br>' + pub.conference.name + '<br>' + pub.award);
             
             $entry.find(".abs").attr('id', 'abs-' + index).find('info').text(pub.abstract);
             $entry.find(".bib").attr('id', 'bib-' + index).text(pub.citation);
