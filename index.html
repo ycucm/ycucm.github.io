@@ -206,6 +206,7 @@ Analytics"></a></div></noscript> -->
                     <p class="author">
                         AUTHORS<br>
                         CONFERENCE<br>
+                        AWARD<br>
                     </p>
                     <button type="button" class="btn btn-success btn-xs collapse-button" data-target="" data-toggle="collapse">Abstract</button>
                     <button type="button" class="btn btn-info btn-xs collapse-button" data-target="" data-toggle="collapse">Bib</button>
@@ -249,6 +250,7 @@ Analytics"></a></div></noscript> -->
                     <p class="author">
                         AUTHORS<br>
                         CONFERENCE<br>
+                        AWARD<br>
                     </p>
                     <button type="button" class="btn btn-success btn-xs collapse-button" data-target="" data-toggle="collapse">Abstract</button>
                     <button type="button" class="btn btn-info btn-xs collapse-button" data-target="" data-toggle="collapse">Bib</button>
@@ -338,7 +340,7 @@ $(document).ready(function() {
             
             $entry.find(".conf-tag").text(pub.conference.short);
             
-            $entry.find(".author").html(pub.authors.join(', ') + '<br>' + pub.conference.name + '<strong><font color="red">' + pub.award + '</font></strong><br>');
+            $entry.find(".author").html(pub.authors.join(', ') + '<br>' + pub.conference.name + '<br>' + '<strong><font color="red">' + pub.award + '</font></strong><br>');
             
             $entry.find(".abs").attr('id', 'abs-' + index).find('info').text(pub.abstract);
             $entry.find(".bib").attr('id', 'bib-' + index).text(pub.citation);
@@ -395,7 +397,7 @@ $(document).ready(function() {
             
             $entry.find(".conf-tag").text(pub.conference.short);
             
-            $entry.find(".author").html(pub.authors.join(', ') + '<br>' + pub.conference.name + '<strong><font color="red">' + pub.award + '</font></strong><br>');
+            $entry.find(".author").html(pub.authors.join(', ') + '<br>' + pub.conference.name + '<br>' + '<strong><font color="red">' + pub.award + '</font></strong><br>');
             
             $entry.find(".abs").attr('id', 'abs-' + index).find('info').text(pub.abstract);
             $entry.find(".bib").attr('id', 'bib-' + index).text(pub.citation);
