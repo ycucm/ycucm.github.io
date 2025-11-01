@@ -338,7 +338,7 @@ $(document).ready(function() {
             
             $entry.find(".conf-tag").text(pub.conference.short);
             
-            $entry.find(".author").html(pub.authors.join(', ') + '<br>' + pub.conference.name);
+            $entry.find(".author").html(pub.authors.join(', ') + '<br>' + pub.conference.name + '<strong><font color="red">' + pub.award + '</font></strong><br>');
             
             $entry.find(".abs").attr('id', 'abs-' + index).find('info').text(pub.abstract);
             $entry.find(".bib").attr('id', 'bib-' + index).text(pub.citation);
@@ -395,7 +395,7 @@ $(document).ready(function() {
             
             $entry.find(".conf-tag").text(pub.conference.short);
             
-            $entry.find(".author").html(pub.authors.join(', ') + '<br>' + pub.conference.name);
+            $entry.find(".author").html(pub.authors.join(', ') + '<br>' + pub.conference.name + '<strong><font color="red">' + pub.award + '</font></strong><br>');
             
             $entry.find(".abs").attr('id', 'abs-' + index).find('info').text(pub.abstract);
             $entry.find(".bib").attr('id', 'bib-' + index).text(pub.citation);
