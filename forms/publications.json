@@ -23,9 +23,9 @@
         "award": "",
         "abstract": "Operating large-scale anycast networks is challenging because client-to-site mappings often misalign with operator’s expectation due to opaque inter-domain routing. We present AnyPro, the first system to unlock the full potential of AS-path prepending (ASPP), efficiently deriving globally optimal configurations to steer clients toward performance-optimal sites at scale. AnyPro first employs an efficient polling mechanism to identify all clients sensitive to ASPP. By analyzing the routing changes during the process, the system derives a set of ASPP constraints that guide client traffic toward the desired sites. We then formulate the anycast optimization problem as a constraint-based program and compute optimal ASPP configurations. Extensive evaluation on a global testbed with 20 PoPs demonstrates the effectiveness of AnyPro: it reduces the 90th percentile latency by 37.7% compared to baseline configurations without ASPP. Furthermore, we show that AnyPro can be integrated with PoP-level anycast optimization techniques to achieve additional performance gains.",
         "citation": "@inproceedings{zhou2026anypro, title={AnyPro: Preference-Preserving Anycast Optimization based on Strategic AS-Path Prepending}, author={Zhou, Minyuan and Chen, Yuning and Xu, Yifei and Zheng, Jiaqi and Chen, Guihai and Dou, Wanchun and Hu, Pan and Tang, Yongping and Yin, Wendong and Lin, Jie and Yu, Qingyan and Su, Yuanchao and Lu, Songwu and Du, Wan}, booktitle={USENIX NSDI}, year={2026}}",
-        "linkToPaper": "https://nsdi26fall.usenix.hotcrp.com/doc/nsdi26fall-paper1031.pdf",
+        "linkToPaper": "https://www.usenix.org/system/files/nsdi26-zhou-minyuan.pdf",
         "linkToSlides": "https://docs.google.com/presentation/d/1If4dKCIUDI-upuTq01IIu59zT_oVltYRHITni8wvglI/edit?usp=sharing",
-        "linkToCode": "https://ycucm.github.io/files/tbd"
+        "linkToCode": "https://github.com/ycucm/NSDI26_AnyPro"
     },
     {
         "title": "SoilX: Calibration-Free Comprehensive Soil Sensing Through Contrastive Cross-Component Learning",
