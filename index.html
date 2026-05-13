@@ -348,7 +348,7 @@ $(document).ready(function() {
             
             $entry.find(".conf-tag").text(pub.conference.short);
             
-            $entry.find(".author").html(pub.authors.join(', ') + '<br>' + pub.conference.name + pub.award);
+            $entry.find(".author").html(pub.authors.join(', ') + '<br>' + pub.conference.name + '<br>' + pub.award);
             
             $entry.find(".abs").attr('id', 'abs-' + index).find('info').text(pub.abstract);
             $entry.find(".bib").attr('id', 'bib-' + index).text(pub.citation);
