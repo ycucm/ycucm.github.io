@@ -10,8 +10,8 @@
         "abstract": "We present GRaF, Generalizable Radio-Frequency (RF) Radiance Fields, a framework that models RF signal propagation to synthesize spatial spectra at arbitrary transmitter or receiver locations, where each spectrum measures signal power across all surrounding directions at the receiver. Unlike state-of-the-art methods that adapt vanilla Neural Radiance Fields (NeRF) to the RF domain with scene-specific training, GRaF generalizes across scenes to synthesize spectra. To enable this, we prove an interpolation theory in the RF domain: the spatial spectrum from a transmitter can be approximated using spectra from geographically proximate transmitters. Building on this theory, GRaF comprises two components: (i) a geometry-aware Transformer encoder that captures spatial correlations from neighboring transmitters to learn a scene-independent latent RF radiance field, and (ii) a neural ray tracing algorithm that estimates spectrum reception at the receiver. Experimental results demonstrate that GRaF outperforms existing methods on single-scene benchmarks and achieves state-of-the-art performance on unseen scene layouts.",
         "citation": "@article{yang2025generalizable,title={Generalizable Radio-Frequency Radiance Fields for Spatial Spectrum Synthesis}, author={Yang, Kang and Chen, Yuning and Du, Wan}, journal={arXiv preprint arXiv:2502.05708}, year={2025}}",
         "linkToPaper": "https://arxiv.org/pdf/2502.05708",
-        "linkToSlides": "https://ycucm.github.io/files/tbd",
-        "linkToCode": "https://ycucm.github.io/files/tbd"
+        "linkToSlides": "https://kangyangg.com/projects/graf/",
+        "linkToCode": "https://github.com/kangyang73/GRaF"
     },
     {
         "title": "AnyPro: Preference-Preserving Anycast Optimization based on Strategic AS-Path Prepending",
